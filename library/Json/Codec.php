@@ -10,6 +10,6 @@ class Codec implements CodecInterface
     
     public function decode($data)
     {
-        
+        return json_decode($data);
     }
 }
