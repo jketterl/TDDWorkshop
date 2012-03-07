@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color:#eaedff;
+	font-family: Helvetica;
+	text-align:center;
+}
+h1 {
+	margin:50px;
+}
+
+h1 span {
+	color:#031169;
+	padding:10px;
+	border:1px solid;
+	border-radius:5px;
+	box-shadow: 2px 2px 20px #4d5794;
+	background-color:#96a5ff;
+}
+
+div.newsticker div {
+	margin:10px;
+}
