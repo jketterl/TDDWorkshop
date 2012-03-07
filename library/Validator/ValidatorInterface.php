@@ -3,5 +3,5 @@ namespace Validator;
 
 interface ValidatorInterface
 {
-	public function validate($data);
+	public function isValid($data);
 }
