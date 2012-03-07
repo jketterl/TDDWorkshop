@@ -1,4 +1,7 @@
 <?php
+require_once(__DIR__ . '/../bootstrap.php');
+
+use Json\Codec;
 header('Content-Type:application/json');
 
 $data = Array(
@@ -13,4 +16,5 @@ $data = Array(
     )
 );
 
-echo json_encode($data);
+$json = new Codec();
+echo $json->encode($data);
