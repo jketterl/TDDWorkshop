@@ -5,6 +5,7 @@ body {
 	font-family: Helvetica;
 	text-align:center;
 }
+
 h1 {
 	margin:50px;
 }
@@ -20,4 +21,9 @@ h1 span {
 
 div.newsticker div {
 	margin:10px;
+	padding:5px;
+	border-radius:5px;
+	box-shadow: 0px 0px 5px #daddef;
+	background-color: #daddef;
+	width:500px;
 }
