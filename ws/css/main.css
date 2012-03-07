@@ -19,11 +19,15 @@ h1 span {
 	background-color:#96a5ff;
 }
 
-div.newsticker div {
+div.newsticker {
+	width:500px;
+	margin:auto;
+}	
+
+div.newsticker div.post {
 	margin:10px;
 	padding:5px;
 	border-radius:5px;
 	box-shadow: 0px 0px 5px #daddef;
 	background-color: #daddef;
-	width:500px;
 }
