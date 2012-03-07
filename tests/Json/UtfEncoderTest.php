@@ -25,4 +25,16 @@ class UtfEncoderTest extends \PHPUnit_Framework_TestCase
         
         self::assertEquals(Array('äöü'), $encoder->encode($input));
     }
+    
+    public function testEncodesObject()
+    {
+        $input = new \stdClass();
+        $input->key = utf8_decode('äöü');
+        
+        $expected = new \stdClass();
+        $expected->key = 'äöü';
+        
+        $encoder = new UtfEncoder();
+        self::assertEquals($expected, $encoder->encode($input));
+    }
 }
