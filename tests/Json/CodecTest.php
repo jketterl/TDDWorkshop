@@ -14,4 +14,15 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $output = $encoder->encode($array);
         self::assertEquals('["text1","text2","text3"]', $output);
     }
+    
+    public function testEncodesObject()
+    {
+        $encoder = new Codec();
+        $object = new \stdClass();
+        $object->foo = 'bar';
+        $object->bla = 'blubb';
+        
+        $output = $encoder->encode($object);
+        self::assertEquals('{"foo":"bar","bla":"blubb"}', $output);
+    }
 }
