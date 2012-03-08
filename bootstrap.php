@@ -8,7 +8,7 @@ spl_autoload_register(
             $dir .= 'library/';
         }
         $dir .= implode(DIRECTORY_SEPARATOR, explode('\\', $name)) . '.php';
-        if (!file_exists($dir)) throw new \RuntimeException('could not find php include for "' . $name . '"');
+        if (!file_exists($dir)) return false;
         require_once($dir);
     }
 );
