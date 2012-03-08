@@ -21,7 +21,9 @@ class PostList implements \Iterator
     {
         $line = fgetcsv($this->_file, 0, ';', '"');
         if ($line === FALSE) return false;
-        return new Post($line[0]);
+        $post = new Post();
+        $post->setText($line[0]);
+        return $post;
     }
     
     public function current()

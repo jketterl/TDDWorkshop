@@ -5,9 +5,14 @@ class Post
 {
     public $text;
     
-    public function __construct($text)
+    public function __construct()
+    {
+    }
+    
+    public function setText($text)
     {
         $this->text = $text;
+        return $this;
     }
     
     public function getText()

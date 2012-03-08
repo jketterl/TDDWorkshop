@@ -10,7 +10,8 @@ class PostTest extends \PHPUnit_Framework_TestCase
     public function testReturnsText()
     {
         $message = 'Das ist ein Testpost.';
-        $post = new Post($message);
+        $post = new Post();
+        $post->setText($message);
         
         self::assertEquals($message, $post->getText());
     }
@@ -18,7 +19,8 @@ class PostTest extends \PHPUnit_Framework_TestCase
     public function testToStringWorks()
     {
         $message = 'a public announcment to all testers';
-        $post = new post($message);
+        $post = new Post();
+        $post->setText($message);
         
         self::assertEquals($message, (string) $post);
     }
