@@ -1,6 +1,10 @@
 <?php
 namespace Json;
 
+/**
+ * @author jketterl
+ * @covers Json\UtfEncoder
+ */
 class UtfEncoderTest extends \PHPUnit_Framework_TestCase
 {
     public function testConvertsToUtf()

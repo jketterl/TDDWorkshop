@@ -1,6 +1,10 @@
 <?php
 namespace Validator;
 
+/**
+ * @author djungowski
+ * @covers Validator\Profanity
+ */
 class ProfanityTest extends \PHPUnit_Framework_TestCase
 {
 	public function testValidateTrue()
