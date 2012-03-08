@@ -3,6 +3,10 @@ namespace Validator;
 
 /**
  * @author djungowski
+ * 
+ * @group profanity
+ * @group validation
+ * 
  * @covers Validator\Profanity
  */
 class ProfanityTest extends \PHPUnit_Framework_TestCase
