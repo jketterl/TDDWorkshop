@@ -13,19 +13,17 @@ class UtfEncoder
             case 'array':
                 $result = Array();
                 foreach ($data as $key => $value) {
-                    $result[$this->encode($key)] = $this->encode($value);
+                    $result[$key] = $this->encode($value);
                 }
                 return $result;
             case 'object':
                 $result = new \stdClass();
-                $ref = new \ReflectionObject($data);
-                foreach ($ref->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
-                    $name = $property->getName();
-                    $result->$name = $this->encode($property->getValue($data));
+                foreach ($data as $key => $value) {
+                    $result->$key = $this->encode($value);
                 }
                 return $result;
             default:
-                throw new \RuntimeException('cannot encode variable type "' . gettype($data) . '"');
+                throw new \InvalidArgumentException('cannot encode variable type "' . gettype($data) . '"');
         }
     }
 }

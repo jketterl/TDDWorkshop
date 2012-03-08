@@ -37,4 +37,21 @@ class UtfEncoderTest extends \PHPUnit_Framework_TestCase
         $encoder = new UtfEncoder();
         self::assertEquals($expected, $encoder->encode($input));
     }
+    
+    public function testPassesIntegers()
+    {
+        $input = 42;
+        $encoder = new UtfEncoder();
+        self::assertEquals(42, $encoder->encode($input));
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage cannot encode variable type
+     */
+    public function testThrowsExceptionOnInvalidType()
+    {
+        $encoder = new UtfEncoder();
+        $encoder->encode(NULL);
+    }
 }
