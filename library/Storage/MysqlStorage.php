@@ -11,7 +11,7 @@ class MysqlStorage implements StorageInterface
     {
         $this->_table = $table;
         if (!class_exists($className)) {
-            throw new InvalidArgumentException('class "' . $className . '" does not exist');
+            throw new \InvalidArgumentException('class "' . $className . '" does not exist');
         }
         $this->_className = $className;
         $this->_dbHandler = new \PDO("mysql:host=localhost;dbname=tddworkshop", "root", "");
@@ -26,13 +26,7 @@ class MysqlStorage implements StorageInterface
         $query->execute();
         // we queried by id, so this basically should only return one set of data.
         $data = $query->fetch();
-        $object = new $this->_className;
-        
-        foreach ($data as $key => $value) {
-            $object->$key = $value;
-        }
-        
-        return $object;
+        return $this->toObject($data);
     }
     
     public function store($object)
@@ -42,6 +36,25 @@ class MysqlStorage implements StorageInterface
     
     public function getAll()
     {
+        $query = $this->_dbHandler->prepare('SELECT * FROM ' . $this->_table);
+        $query->setFetchMode(\PDO::FETCH_ASSOC);
+        $query->execute();
         
+        $result = Array();
+        while (($row = $query->fetch()) !== FALSE) {
+            $result[] = $this->toObject($row);
+        }
+        return $result;
+    }
+    
+    protected function toObject($data)
+    {
+        $object = new $this->_className;
+        
+        foreach ($data as $key => $value) {
+            $object->$key = $value;
+        }
+        
+        return $object;
     }
 }
