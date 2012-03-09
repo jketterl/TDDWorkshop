@@ -14,13 +14,29 @@ class MysqlStorage implements StorageInterface
             throw new \InvalidArgumentException('class "' . $className . '" does not exist');
         }
         $this->_className = $className;
-        $this->_dbHandler = new \PDO("mysql:host=localhost;dbname=tddworkshop", "root", "");
-        $this->_dbHandler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+    
+    public function setDbHandler(\PDO $dbHandler)
+    {
+        $this->_dbHandler = $dbHandler;
+    }
+    
+    /**
+     * 
+     * @return \PDO
+     */
+    private function getDbHandler()
+    {
+        if (!isset($this->_dbHandler)) {
+            $this->_dbHandler = new \PDO("mysql:host=localhost;dbname=tddworkshop", "root", "");
+            $this->_dbHandler->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        }
+        return $this->_dbHandler;
     }
     
     public function load($id)
     {
-        $query = $this->_dbHandler->prepare('SELECT * FROM ' . $this->_table . ' WHERE id = :id');
+        $query = $this->getDbHandler()->prepare('SELECT * FROM ' . $this->_table . ' WHERE id = :id');
         $query->bindValue(':id', $id);
         $query->setFetchMode(\PDO::FETCH_ASSOC);
         $query->execute();
@@ -36,7 +52,7 @@ class MysqlStorage implements StorageInterface
     
     public function getAll()
     {
-        $query = $this->_dbHandler->prepare('SELECT * FROM ' . $this->_table);
+        $query = $this->getDbHandler()->prepare('SELECT * FROM ' . $this->_table);
         $query->setFetchMode(\PDO::FETCH_ASSOC);
         $query->execute();
         
