@@ -1,7 +1,7 @@
 <?php
 namespace Storage;
 
-require_once 'PDOMockable.php';
+use Storage\PDOMockable;
 
 /**
  * @author jketterl
@@ -34,7 +34,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         // auf beim Mocking, serialisiert phpunit das Objekt zum mocken
         // Serialisieren geht bei PDO nicht. Deswegen verwenden wir diese Hilfsklasse,
         // die lediglich PDO extended und den Konstruktor ueberschreibt
-        $mock = $this->getMock('\PDOMockable', $methods);
+        $mock = $this->getMock('Storage\PDOMockable', $methods);
         $mock->expects($this->any())
              ->method('prepare')
              ->will($this->returnValue($query));

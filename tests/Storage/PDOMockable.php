@@ -1,4 +1,6 @@
 <?php
+namespace Storage;
+
 /**
  * PDO verlangt Parameter im Konstruktor. Ruft man den Originalkonstruktor nicht
  * auf beim Mocking, serialisiert phpunit das Objekt zum mocken
@@ -8,7 +10,7 @@
  * @author djungowski
  *
  */
-class PDOMockable extends PDO
+class PDOMockable extends \PDO
 {
     public function __construct()
     {
