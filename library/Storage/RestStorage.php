@@ -43,9 +43,9 @@ class RestStorage implements StorageInterface
         }
         
         if (isset($object->id)) {
-            $this->getClient()->post($this->_baseUrl . '/' . $object->id . '.' . $this->_format, $data);
+            $this->getClient()->put($this->_baseUrl . '/' . $object->id . '.' . $this->_format, $data);
         } else {
-            $this->getClient()->put($this->_baseUrl . '.' . $this->_format, $data);
+            $this->getClient()->post($this->_baseUrl . '.' . $this->_format, $data);
         }
     }
     

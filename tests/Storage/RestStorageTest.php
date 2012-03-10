@@ -66,13 +66,13 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
         self::assertEquals('Alfred Testbenutzer', $user->getName());
     }
     
-    public function testPutsNewUser()
+    public function testPostsNewUser()
     {
         $user = new User();
         $user->setLogin('atest')->setName('Alfons Testhuber');
         
         $this->_client->expects($this->at(0))
-                      ->method('put')
+                      ->method('post')
                       ->with(
                           'http://localhost/rest/user.json',
                           Array('login' => 'atest', 'name' => 'Alfons Testhuber')
@@ -81,14 +81,14 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
         $this->_storage->store($user);
     }
     
-    public function testPostsExistingUser()
+    public function testPutsExistingUser()
     {
         $user = new User();
         $user->setLogin('atest')->setName('Alfons Testhuber');
         $user->id = 42;
         
         $this->_client->expects($this->at(0))
-                      ->method('post')
+                      ->method('put')
                       ->with(
                           'http://localhost/rest/user/42.json',
                           Array('login' => 'atest', 'name' => 'Alfons Testhuber')
