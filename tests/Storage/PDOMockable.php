@@ -1,6 +1,6 @@
 <?php
 /**
- * PDO verlangt Parameter Konstruktor. Ruft man den Originalkonstruktor nicht
+ * PDO verlangt Parameter im Konstruktor. Ruft man den Originalkonstruktor nicht
  * auf beim Mocking, serialisiert phpunit das Objekt zum mocken
  * Serialisieren geht bei PDO nicht. Deswegen verwenden wir diese Hilfsklasse,
  * die lediglich PDO extended und den Konstruktor ueberschreibt 
