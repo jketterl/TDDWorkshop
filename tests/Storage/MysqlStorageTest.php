@@ -43,7 +43,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
     
     public function testRetrievesUser()
     {
-        $storage = new MysqlStorage('user', 'Posts\Post');
+        $storage = new MysqlStorage('user', 'Posts\User');
         
         $userData = array(
             'name' => 'Alfons'
@@ -59,7 +59,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $storage->setDbHandler($db);
         
         $user = $storage->load(1);
-        self::assertInstanceOf('Posts\Post', $user);
+        self::assertInstanceOf('Posts\User', $user);
     }
     
     public function fetchCallback()
@@ -69,14 +69,14 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
     
     public function testRetrievesList()
     {
-        $storage = new MysqlStorage('user', 'Posts\Post');
+        $storage = new MysqlStorage('user', 'Posts\User');
         
         $userData1 = array(
-        	'name' => 'Alfons'
-    	);
-    	$userData2 = array(
-    	    'name' => 'Bernd'
-    	);
+           'name' => 'Alfons'
+        );
+        $userData2 = array(
+            'name' => 'Bernd'
+        );
         
         $query = $this->getQueryMock();
         $query->expects($this->any())
@@ -89,7 +89,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $list = $storage->getAll();
         
         self::assertInternalType('array', $list);
-        self::assertInstanceOf('Posts\Post', $list[0]);
+        self::assertInstanceOf('Posts\User', $list[0]);
     }
     
     /**
