@@ -1,6 +1,4 @@
 <?php
-define('BASEPATH', __DIR__);
-
 spl_autoload_register(
     function($name){
         $dir = __DIR__ . '/';
