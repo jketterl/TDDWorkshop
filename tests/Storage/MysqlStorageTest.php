@@ -60,6 +60,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         
         $user = $storage->load(1);
         self::assertInstanceOf('Posts\User', $user);
+        self::assertEquals('Alfons', $user->name);
     }
     
     public function fetchCallback()
