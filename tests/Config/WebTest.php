@@ -23,7 +23,7 @@ EOT
         );
     }
     
-    public function testGet()
+    public function testGetWithSection()
     {
         $config = new Web($this->_configFile);
         $dbConfig = array(
@@ -37,5 +37,17 @@ EOT
     {
         $config = new Web($this->_configFile);
         $this->assertNull($config->get('horst'));
+    }
+    
+    public function testGetWithoutSection()
+    {
+        $config = new Web($this->_configFile);
+        $configArray = array(
+            'database' => array(
+            	'host' => 'localhost',
+            	'user' => 'root'
+        	)
+        );
+        $this->assertSame($configArray, $config->get());
     }
 }
