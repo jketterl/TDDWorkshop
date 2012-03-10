@@ -1,6 +1,8 @@
 <?php
 namespace Storage;
 
+use Posts\User;
+
 use Storage\PDOMockable;
 
 /**
@@ -100,5 +102,29 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnInvalidClassName()
     {
         $storage = new MysqlStorage('user', 'Dummy\Pseudo');
+    }
+    
+    public function testInsertUser()
+    {
+        $user = new User();
+        $user->setLogin('atest')->setName('Alfons Testbenutzer');
+        
+        $query = $this->getQueryMock();
+        $dbHandlerMock = $this->getMock('Storage\PdoMockable');
+        $dbHandlerMock->expects($this->at(0))
+                      ->method('prepare')
+                      ->with(
+                          'INSERT INTO user (login, name) VALUES (:login, :name)'
+                      )->will($this->returnValue($query));
+        $query->expects($this->at(0))->method('bindValue')->with(':login', 'atest');
+        $query->expects($this->at(1))->method('bindValue')->with(':name', 'Alfons Testbenutzer');
+        $query->expects($this->at(2))->method('execute');
+        $dbHandlerMock->expects($this->at(1))->method('lastInsertId')->will($this->returnValue(1234));
+        
+        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage->setDbHandler($dbHandlerMock);
+        $storage->store($user);
+        
+        self::assertEquals(1234, $user->getId());
     }
 }

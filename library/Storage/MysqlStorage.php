@@ -47,7 +47,36 @@ class MysqlStorage implements StorageInterface
     
     public function store($object)
     {
-        
+        // i'll let the id decide whether we are performing an update ore an insert
+        if (isset($object->id)) {
+            
+        } else {
+            // building a PDO query, a little bit crude... but should work for demonstration purposes.
+            $data = Array();;
+            foreach ($object as $key => $value) {
+                // id is a generated value, don't insert it
+                if ($key == 'id') continue;
+                $data[$key] = $value;
+            }
+            $columns = array_keys($data);
+            $statement = 'INSERT INTO ' . $this->_table . ' (' . implode(', ', $columns) . ') VALUES (';
+            
+            // quickly rework columns array into pdo placeholder
+            foreach ($columns as &$column) $column = ':' . $column;
+            $statement .= implode(', ', $columns) . ')';
+            
+            $query = $this->getDbHandler()->prepare($statement);
+            
+            // bind parameters
+            foreach ($data as $key => $value) {
+                $query->bindValue(':' . $key, $value);
+            }
+            
+            // and run it!
+            $query->execute();
+            
+            $object->id = $this->getDbHandler()->lastInsertId();
+        }
     }
     
     public function getAll()
