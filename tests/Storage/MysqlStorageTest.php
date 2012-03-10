@@ -30,7 +30,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
     private function getPDOMock($query)
     {
         $methods = array(
-            'prepare',
+            'prepare'
         );
         // PDO verlangt Parameter im Konstruktor. Ruft man den Originalkonstruktor nicht
         // auf beim Mocking, serialisiert phpunit das Objekt zum mocken
@@ -104,27 +104,57 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $storage = new MysqlStorage('user', 'Dummy\Pseudo');
     }
     
-    public function testInsertUser()
+    public function testInsertsUser()
     {
         $user = new User();
         $user->setLogin('atest')->setName('Alfons Testbenutzer');
         
         $query = $this->getQueryMock();
-        $dbHandlerMock = $this->getMock('Storage\PdoMockable');
-        $dbHandlerMock->expects($this->at(0))
+        $query->expects($this->at(0))->method('bindValue')->with(':login', 'atest');
+        $query->expects($this->at(1))->method('bindValue')->with(':name', 'Alfons Testbenutzer');
+        $query->expects($this->at(2))->method('execute');
+        
+        // i'm not using getPDOMock() here since i have extra expectations to the prepare call
+        $db = $this->getMock('Storage\PDOMockable');
+        $db->expects($this->at(0))
                       ->method('prepare')
                       ->with(
                           'INSERT INTO user (login, name) VALUES (:login, :name)'
                       )->will($this->returnValue($query));
-        $query->expects($this->at(0))->method('bindValue')->with(':login', 'atest');
-        $query->expects($this->at(1))->method('bindValue')->with(':name', 'Alfons Testbenutzer');
-        $query->expects($this->at(2))->method('execute');
-        $dbHandlerMock->expects($this->at(1))->method('lastInsertId')->will($this->returnValue(1234));
+        $db->expects($this->any())->method('lastInsertId')->will($this->returnValue(1234));
         
         $storage = new MysqlStorage('user', 'Posts\User');
-        $storage->setDbHandler($dbHandlerMock);
+        $storage->setDbHandler($db);
         $storage->store($user);
         
         self::assertEquals(1234, $user->getId());
+    }
+    
+    public function testUpdatesUser()
+    {
+        $user = new User();
+        $user->setLogin('atest')->setName('Alfons Testbenutzer');
+        
+        // setting the id is something that would usually be blocked. but since our mysql storage can only handle
+        // publicly visible properties, i can easily inject an id here :)
+        $user->id = 42;
+
+        $query = $this->getQueryMock();
+        $query->expects($this->at(0))->method('bindValue')->with(':login', 'atest');
+        $query->expects($this->at(1))->method('bindValue')->with(':name', 'Alfons Testbenutzer');
+        $query->expects($this->at(2))->method('bindValue')->with(':id', 42);
+        $query->expects($this->at(3))->method('execute');
+        
+        // i'm not using getPDOMock() here since i have extra expectations to the prepare call
+        $db = $this->getMock('Storage\PDOMockable');
+        $db->expects($this->at(0))
+                      ->method('prepare')
+                      ->with(
+                          'UPDATE user SET login = :login, name = :name WHERE id = :id'
+                      )->will($this->returnValue($query));
+                      
+        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage->setDbHandler($db);
+        $storage->store($user);
     }
 }
