@@ -16,6 +16,13 @@ class PostListTest extends \PHPUnit_Framework_TestCase
     private $_vfsNamespace = 'PostListTest';
     private $_postsFile;
     
+    private $_posts = array(
+        'Wir melden uns heute live von der CeBIT.',
+		'Die Teilnehmer der Veranstaltung betreten erstmal den roten Teppich.',
+		'Auch bekannte Gesichter wie Mathias Plica konnten gesichtet werden!',
+		'Wir erwarten gespannt die Er�ffnung des B�ffets :)'
+    );
+    
     protected function setUp()
     {
         parent::setUp();
@@ -23,12 +30,7 @@ class PostListTest extends \PHPUnit_Framework_TestCase
         vfsStream::setup($this->_vfsNamespace);
         file_put_contents(
             $this->_postsFile,
-            <<<EOT
-Wir melden uns heute live von der CeBIT.
-Die Teilnehmer der Veranstaltung betreten erstmal den roten Teppich.
-Auch bekannte Gesichter wie Mathias Plica konnten gesichtet werden!
-Wir erwarten gespannt die Er�ffnung des B�ffets :)
-EOT
+            implode(PHP_EOL, $this->_posts)
         );
     }
     
@@ -47,6 +49,7 @@ EOT
         $list = new PostList($this->_postsFile);
         foreach ($list as $post) {
             $this->assertInstanceOf('Posts\Post', $post);
+            // Ueberpruefen, dass der richtige Text verwendet wurde
         }
     }
 }
