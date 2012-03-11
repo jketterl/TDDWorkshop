@@ -3,7 +3,11 @@ namespace Storage;
 
 /**
  * @author jketterl
+ * 
  * @group rest
+ * @group storage
+ * 
+ * @covers Storage\RestStorage
  */
 use Posts\User;
 

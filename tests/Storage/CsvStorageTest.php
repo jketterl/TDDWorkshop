@@ -5,6 +5,13 @@ use Posts\User;
 
 use org\bovigo\vfs\vfsStream;
 
+/**
+ * @author jketterl
+ * 
+ * @group storage
+ * 
+ * @covers Storage\CsvStorage
+ */
 class CsvStorageTest extends \PHPUnit_Framework_TestCase
 {
     private $_vfsNamespace = 'CsvStorageTest';

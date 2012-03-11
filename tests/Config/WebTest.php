@@ -3,6 +3,10 @@ namespace Config;
 
 use org\bovigo\vfs\vfsStream;
 
+/**
+ * @author djungowski
+ * @covers Config\Web
+ */
 class WebTest extends \PHPUnit_Framework_TestCase
 {
     private $_vfsNamespace = 'ConfigWebTest';
