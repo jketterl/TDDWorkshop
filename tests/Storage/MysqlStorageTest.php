@@ -60,7 +60,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         
         $storage->setDbHandler($db);
         
-        $user = $storage->load(1);
+        $user = $storage->find(1);
         self::assertInstanceOf('Posts\User', $user);
         self::assertEquals('Alfons', $user->name);
     }
@@ -89,7 +89,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $db = $this->getPDOMock($query);
         $storage->setDbHandler($db);
         
-        $list = $storage->getAll();
+        $list = $storage->findAll();
         
         self::assertInternalType('array', $list);
         self::assertInstanceOf('Posts\User', $list[0]);

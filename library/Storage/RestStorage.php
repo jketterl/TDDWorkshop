@@ -28,7 +28,7 @@ class RestStorage implements StorageInterface
         return $this->_client;
     }
 
-    public function load($id)
+    public function find($id)
     {
         $data = $this->decode($this->getClient()->get($this->_baseUrl . '/' . $id . '.' . $this->_format));
         return $this->toObject($data);
@@ -49,7 +49,7 @@ class RestStorage implements StorageInterface
         }
     }
     
-    public function getAll()
+    public function findAll()
     {
         $response = $this->decode($this->getClient()->get($this->_baseUrl . '.' . $this->_format));
         $result = Array();

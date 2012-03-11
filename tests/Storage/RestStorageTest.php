@@ -40,7 +40,7 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
                       ->with('http://localhost/rest/user.json')
                       ->will($this->returnValue($json));
         
-        $users = $this->_storage->getAll();
+        $users = $this->_storage->findAll();
         self::assertEquals(2, count($users));
         foreach ($users as $user) self::assertInstanceOf('Posts\User', $user);
     }
@@ -60,7 +60,7 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
                       ->with('http://localhost/rest/user/42.json')
                       ->will($this->returnValue($json));
         
-        $user = $this->_storage->load(42);
+        $user = $this->_storage->find(42);
         self::assertInstanceOf('Posts\User', $user);
         self::assertEquals('atest', $user->getLogin());
         self::assertEquals('Alfred Testbenutzer', $user->getName());
