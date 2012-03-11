@@ -14,6 +14,7 @@ use org\bovigo\vfs\vfsStream;
 class PostListTest extends \PHPUnit_Framework_TestCase
 {
     private $_vfsNamespace = 'PostListTest';
+    private $_postsFile;
     
     protected function setUp()
     {
@@ -39,5 +40,13 @@ EOT
     public function testCreationFail()
     {
         new PostList('lukasderlokomotivfuehrer.csv');
+    }
+    
+    public function testRead()
+    {
+        $list = new PostList($this->_postsFile);
+        foreach ($list as $post) {
+            $this->assertInstanceOf('Posts\Post', $post);
+        }
     }
 }
