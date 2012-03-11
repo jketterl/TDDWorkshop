@@ -18,9 +18,8 @@ class PostListTest extends \PHPUnit_Framework_TestCase
     
     private $_posts = array(
         'Wir melden uns heute live von der CeBIT.',
-		'Die Teilnehmer der Veranstaltung betreten erstmal den roten Teppich.',
-		'Auch bekannte Gesichter wie Mathias Plica konnten gesichtet werden!',
-		'Wir erwarten gespannt die Er�ffnung des B�ffets :)'
+        'Die Teilnehmer der Veranstaltung betreten erstmal den roten Teppich.',
+        'Auch bekannte Gesichter wie Mathias Plica konnten gesichtet werden!'
     );
     
     protected function setUp()
@@ -53,6 +52,15 @@ class PostListTest extends \PHPUnit_Framework_TestCase
             // Ueberpruefen, dass der richtige Text verwendet wurde
             $this->assertSame($this->_posts[$key], $post->getText());
             $key++;
+        }
+    }
+    
+    public function testKeys()
+    {
+        $list = new PostList($this->_postsFile);
+        $key = 0;
+        foreach ($list as $offset => $post) {
+            self::assertEquals($key++, $offset);
         }
     }
 }

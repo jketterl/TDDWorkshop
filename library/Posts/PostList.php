@@ -23,6 +23,11 @@ class PostList implements \Iterator
         if ($line === FALSE) return false;
         $post = new Post();
         $post->setText($line[0]);
+        if (isset($this->_index)) {
+            $this->_index++;
+        } else {
+            $this->_index = 0;
+        }
         return $post;
     }
     
@@ -48,7 +53,7 @@ class PostList implements \Iterator
     
     public function rewind()
     {
-        $this->_index = 0;
+        unset($this->_index);
         $this->_current = $this->read();
     }
 }
