@@ -3,7 +3,6 @@ require_once(__DIR__ . '/../bootstrap.php');
 
 use Json\Codec;
 use Posts\PostList;
-use Validator\Profanity;
 
 header('Content-Type:application/json');
 
