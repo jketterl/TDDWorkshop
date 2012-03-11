@@ -8,7 +8,7 @@ use Validator\Profanity;
 header('Content-Type:application/json');
 
 $posts = Array();
-$list = new PostList();
+$list = new PostList(__DIR__ . '/../posts.csv');
 $validator = new Profanity();
 
 foreach ($list as $post) {
