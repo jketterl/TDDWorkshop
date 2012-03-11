@@ -11,7 +11,6 @@ class PostList implements \Iterator
     
     public function __construct($postsFile)
     {
-//        $this->_file = fopen(__DIR__ . '/../../posts.csv', 'r');
         if (!file_exists($postsFile)) {
             throw new \InvalidArgumentException('posts file not found.');
         }
