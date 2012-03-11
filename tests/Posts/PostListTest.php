@@ -47,9 +47,12 @@ class PostListTest extends \PHPUnit_Framework_TestCase
     public function testRead()
     {
         $list = new PostList($this->_postsFile);
+        $key = 0;
         foreach ($list as $post) {
             $this->assertInstanceOf('Posts\Post', $post);
             // Ueberpruefen, dass der richtige Text verwendet wurde
+            $this->assertSame($this->_posts[$key], $post->getText());
+            $key++;
         }
     }
 }
