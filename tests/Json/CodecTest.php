@@ -4,7 +4,7 @@ namespace Json;
 /**
  * @author jketterl
  * 
- * @cgroup encoders
+ * @group encoders
  * @group json
  * 
  * @covers Json\Codec
