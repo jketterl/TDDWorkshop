@@ -1,3 +1,0 @@
-[submodule "externals/vfsStream"]
-	path = externals/vfsStream
-	url = https://github.com/mikey179/vfsStream.git

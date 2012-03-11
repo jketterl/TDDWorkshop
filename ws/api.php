@@ -9,10 +9,9 @@ header('Content-Type:application/json');
 
 $posts = Array();
 $list = new PostList();
-$validator = new Profanity();
 
 foreach ($list as $post) {
-    if ($validator->isValid($post->getText())) $posts[] = $post;
+    $posts[] = $post;
 }
 
 $json = new Codec();
