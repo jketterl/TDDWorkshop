@@ -3,5 +3,13 @@ namespace Json;
 
 class Codec implements CodecInterface
 {
-    // IMPLEMENT LESSON 1 HERE
+    public function encode($data)
+    {
+        return json_encode($data);
+    }
+    
+    public function decode($data)
+    {
+        return json_decode($data);
+    }
 }
