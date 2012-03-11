@@ -13,7 +13,7 @@ class PostList implements \Iterator
     {
         $this->_file = fopen(__DIR__ . '/../../posts.csv', 'r');
         if ($this->_file == false) {
-            throw new InvalidArgumentException('posts file not found.');
+            throw new \InvalidArgumentException('posts file not found.');
         }
     }
     
