@@ -1,6 +1,8 @@
 <?php
 namespace Posts;
 
+use org\bovigo\vfs\vfsStreamFile;
+
 use org\bovigo\vfs\vfsStream;
 
 /**

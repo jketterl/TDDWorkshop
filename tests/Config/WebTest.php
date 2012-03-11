@@ -8,7 +8,7 @@ class WebTest extends \PHPUnit_Framework_TestCase
     private $_vfsNamespace = 'ConfigWebTest';
     private $_configFile;
     
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         vfsStream::setup($this->_vfsNamespace);
