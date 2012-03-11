@@ -3,7 +3,7 @@ namespace Storage;
 
 interface StorageInterface
 {
-    public function load($id);
+    public function find($id);
+    public function findAll();
     public function store($object);
-    public function getAll();
 }

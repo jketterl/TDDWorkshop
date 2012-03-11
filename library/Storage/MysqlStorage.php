@@ -34,7 +34,7 @@ class MysqlStorage implements StorageInterface
         return $this->_dbHandler;
     }
     
-    public function load($id)
+    public function find($id)
     {
         $query = $this->getDbHandler()->prepare('SELECT * FROM ' . $this->_table . ' WHERE id = :id');
         $query->bindValue(':id', $id);
@@ -89,7 +89,7 @@ class MysqlStorage implements StorageInterface
         }
     }
     
-    public function getAll()
+    public function findAll()
     {
         $query = $this->getDbHandler()->prepare('SELECT * FROM ' . $this->_table);
         $query->setFetchMode(\PDO::FETCH_ASSOC);
