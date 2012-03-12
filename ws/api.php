@@ -2,16 +2,19 @@
 require_once(__DIR__ . '/../bootstrap.php');
 
 use Json\Codec;
-use Posts\PostList;
 
 header('Content-Type:application/json');
 
+// collect all posts from the CSV into an array
 $posts = Array();
-$list = new PostList();
+$file = fopen(__DIR__ . '/../posts.csv', 'r');
 
-foreach ($list as $post) {
-    $posts[] = $post;
+while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
+    $posts[] = Array(
+        'text' => $line[0]
+    );
 }
 
+// encode array for the client
 $json = new Codec();
 echo $json->encode($posts);
