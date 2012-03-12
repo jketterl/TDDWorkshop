@@ -34,4 +34,6 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $output = $encoder->encode($object);
         self::assertEquals('{"foo":"bar","bla":"blubb"}', $output);
     }
+    
+    // IMPLEMENT LESSON 4 TESTS HERE!
 }
