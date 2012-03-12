@@ -1,14 +1,7 @@
 <?php
 namespace Json;
+require_once(__DIR__ . '/../../bootstrap.php');
 
-/**
- * @author jketterl
- * 
- * @group utf8
- * @group encoders
- * 
- * @covers Json\UtfEncoder
- */
 class UtfEncoderTest extends \PHPUnit_Framework_TestCase
 {
     /**
