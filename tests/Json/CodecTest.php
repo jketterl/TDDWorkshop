@@ -1,38 +1,31 @@
 <?php
 namespace Json;
 
-/**
- * @author jketterl
- * 
- * @group encoders
- * @group json
- * 
- * @covers Json\Codec
- */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
     public function testEncodesArray()
     {
-        $encoder = new Codec();
+        $json = new Codec();
         $array = Array(
-            'text1',
-            'text2',
-            'text3'
+            'das ist ein Test'
         );
         
-        $output = $encoder->encode($array);
-        self::assertEquals('["text1","text2","text3"]', $output);
+        self::assertEquals(
+            '["das ist ein Test"]',
+            $json->encode($array)
+        );
     }
     
     public function testEncodesObject()
     {
-        $encoder = new Codec();
+        $json = new Codec();
         $object = new \stdClass();
-        $object->foo = 'bar';
-        $object->bla = 'blubb';
+        $object->name = 'Hans Wurst';
         
-        $output = $encoder->encode($object);
-        self::assertEquals('{"foo":"bar","bla":"blubb"}', $output);
+        self::assertEquals(
+            '{"name":"Hans Wurst"}',
+            $json->encode($object)
+        );
     }
     
     public function testDecodesArray()
