@@ -1,8 +1,6 @@
 <?php
 namespace Storage;
 
-use Posts\User;
-
 use org\bovigo\vfs\vfsStream;
 
 /**
@@ -31,21 +29,22 @@ btest;Beatrix Testmeier
 cbeispiel;Conrad Beispieluser
 EOF
         );
-        $this->_storage = new CsvStorage('Posts\User', $this->_csvFile, Array(0 => 'login', 1 => 'name'));
+        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'login', 1 => 'name'));
     }
      
-    public function testRetrievesUser()
+    public function testRetrievesObject()
     {
         $user = $this->_storage->find(1);
-        self::assertInstanceOf('Posts\User', $user);
-        self::assertEquals('btest', $user->getLogin());
-        self::assertEquals('Beatrix Testmeier', $user->getName());
+        self::assertInstanceOf('stdClass', $user);
+        self::assertEquals('btest', $user->login);
+        self::assertEquals('Beatrix Testmeier', $user->name);
     }
     
     public function testRetrievesAll()
     {
         $users = $this->_storage->findAll();
-        foreach ($users as $user) self::assertInstanceof('Posts\User', $user);
+        self::assertInternalType('array', $users);
+        foreach ($users as $user) self::assertInstanceof('stdClass', $user);
     }
     
     /**
@@ -54,8 +53,9 @@ EOF
      */
     public function testThrowsExceptionOnStore()
     {
-        $user = new User();
-        $user->setLogin('bla')->setName('blubb');
+        $user = new \stdClass();
+        $user->login = 'bla';
+        $user->name = 'blubb';
         $this->_storage->store($user);
     }
     
