@@ -14,16 +14,16 @@ class ProfanityTest extends \PHPUnit_Framework_TestCase
 	public function testValidateTrue()
 	{
 		$validator = new Profanity();
-		$this->assertTrue($validator->isValid('Dies ist ein sozial verträglicher Text'));
+		self::assertTrue($validator->isValid('Dies ist ein sozial verträglicher Text'));
 	}
 	
 	public function testValidateFalse()
 	{
 		$validator = new Profanity();
-		$this->assertFalse($validator->isValid('fuck'));
-		$this->assertFalse($validator->isValid('shit'));
-		$this->assertFalse($validator->isValid('Mario Barth'));
-		$this->assertFalse($validator->isValid('Dies ist ein fuck Lauftext'));
-		$this->assertFalse($validator->isValid('fuck ist shit und überhaupt!'));
+		self::assertFalse($validator->isValid('fuck'));
+		self::assertFalse($validator->isValid('shit'));
+		self::assertFalse($validator->isValid('Mario Barth'));
+		self::assertFalse($validator->isValid('Dies ist ein fuck Lauftext'));
+		self::assertFalse($validator->isValid('fuck ist shit und überhaupt!'));
 	}
 }

@@ -34,13 +34,13 @@ EOT
             'host' => 'localhost',
             'user' => 'root'
         );
-        $this->assertSame($dbConfig, $config->get('database'));
+        self::assertSame($dbConfig, $config->get('database'));
     }
     
     public function testGetInvalidSections()
     {
         $config = new Web($this->_configFile);
-        $this->assertNull($config->get('horst'));
+        self::assertNull($config->get('horst'));
     }
     
     public function testGetWithoutSection()
@@ -52,6 +52,6 @@ EOT
             	'user' => 'root'
         	)
         );
-        $this->assertSame($configArray, $config->get());
+        self::assertSame($configArray, $config->get());
     }
 }
