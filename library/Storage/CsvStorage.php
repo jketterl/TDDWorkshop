@@ -10,6 +10,9 @@ class CsvStorage implements StorageInterface
     public function __construct($className, $file, $mapping = Array())
     {
         $this->_className = $className;
+        if (!file_exists($file)) {
+            throw new \InvalidArgumentException('csv file not found.');
+        }
         $this->_file = $file;
         $this->_mapping = $mapping;
     }

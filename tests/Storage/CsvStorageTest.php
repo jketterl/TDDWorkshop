@@ -68,4 +68,13 @@ EOF
         // our csv file only contains three lines, so accessing index 3 should translate do line #4
         $this->_storage->find(3);
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage file not found
+     */
+    public function testThrowsExceptionOnMissingFile()
+    {
+        $storage = new CsvStorage('stdClass', 'dummyfile.xxx');
+    }
 }
