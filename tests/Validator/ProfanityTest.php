@@ -11,13 +11,13 @@ namespace Validator;
  */
 class ProfanityTest extends \PHPUnit_Framework_TestCase
 {
-	public function testValidateTrue()
+	public function testIsValidTrue()
 	{
 		$validator = new Profanity();
 		self::assertTrue($validator->isValid('Dies ist ein sozial verträglicher Text'));
 	}
 	
-	public function testValidateFalse()
+	public function testIsValidFalse()
 	{
 		$validator = new Profanity();
 		self::assertFalse($validator->isValid('fuck'));
