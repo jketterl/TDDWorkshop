@@ -1,8 +1,6 @@
 <?php
 namespace Storage;
 
-use Posts\User;
-
 use Storage\PDOMockable;
 
 /**
@@ -43,9 +41,9 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
     
-    public function testRetrievesUser()
+    public function testRetrievesObject()
     {
-        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage = new MysqlStorage('user', 'stdClass');
         
         $userData = array(
             'name' => 'Alfons'
@@ -61,7 +59,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $storage->setDbHandler($db);
         
         $user = $storage->find(1);
-        self::assertInstanceOf('Posts\User', $user);
+        self::assertInstanceOf('stdClass', $user);
         self::assertEquals('Alfons', $user->name);
     }
     
@@ -72,7 +70,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
     
     public function testRetrievesList()
     {
-        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage = new MysqlStorage('user', 'stdClass');
         
         $userData1 = array(
            'name' => 'Alfons'
@@ -92,7 +90,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $list = $storage->findAll();
         
         self::assertInternalType('array', $list);
-        self::assertInstanceOf('Posts\User', $list[0]);
+        self::assertInstanceOf('stdClass', $list[0]);
     }
     
     /**
@@ -104,10 +102,11 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
         $storage = new MysqlStorage('user', 'Dummy\Pseudo');
     }
     
-    public function testInsertsUser()
+    public function testInsertsObject()
     {
-        $user = new User();
-        $user->setLogin('atest')->setName('Alfons Testbenutzer');
+        $user = new \stdClass();
+        $user->login = 'atest';
+        $user->name = 'Alfons Testbenutzer';
         
         $query = $this->getQueryMock();
         $query->expects($this->at(0))->method('bindValue')->with(':login', 'atest');
@@ -123,17 +122,18 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
                       )->will($this->returnValue($query));
         $db->expects($this->any())->method('lastInsertId')->will($this->returnValue(1234));
         
-        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage = new MysqlStorage('user', 'stdClass');
         $storage->setDbHandler($db);
         $storage->store($user);
         
-        self::assertEquals(1234, $user->getId());
+        self::assertEquals(1234, $user->id);
     }
     
-    public function testUpdatesUser()
+    public function testUpdatesObject()
     {
-        $user = new User();
-        $user->setLogin('atest')->setName('Alfons Testbenutzer');
+        $user = new \stdClass();
+        $user->login = 'atest';
+        $user->name = 'Alfons Testbenutzer';
         
         // setting the id is something that would usually be blocked. but since our mysql storage can only handle
         // publicly visible properties, i can easily inject an id here :)
@@ -153,7 +153,7 @@ class MysqlStorageTest extends \PHPUnit_Framework_TestCase
                           'UPDATE user SET login = :login, name = :name WHERE id = :id'
                       )->will($this->returnValue($query));
                       
-        $storage = new MysqlStorage('user', 'Posts\User');
+        $storage = new MysqlStorage('user', 'stdClass');
         $storage->setDbHandler($db);
         $storage->store($user);
     }
