@@ -9,8 +9,6 @@ namespace Storage;
  * 
  * @covers Storage\RestStorage
  */
-use Posts\User;
-
 class RestStorageTest extends \PHPUnit_Framework_TestCase
 {
     protected $_client;
@@ -19,7 +17,7 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_client = $this->getMock('Http\HttpClientInterface');
-        $this->_storage = new RestStorage('http://localhost/rest/user', 'Posts\User');
+        $this->_storage = new RestStorage('http://localhost/rest/user', 'stdClass');
         $this->_storage->setClient($this->_client);
     }
     
@@ -46,10 +44,10 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
         
         $users = $this->_storage->findAll();
         self::assertEquals(2, count($users));
-        foreach ($users as $user) self::assertInstanceOf('Posts\User', $user);
+        foreach ($users as $user) self::assertInstanceOf('stdClass', $user);
     }
     
-    public function testRetrievesUser()
+    public function testRetrievesObject()
     {
         $json = json_encode(
             Array(
@@ -65,15 +63,16 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
                       ->will($this->returnValue($json));
         
         $user = $this->_storage->find(42);
-        self::assertInstanceOf('Posts\User', $user);
-        self::assertEquals('atest', $user->getLogin());
-        self::assertEquals('Alfred Testbenutzer', $user->getName());
+        self::assertInstanceOf('stdClass', $user);
+        self::assertEquals('atest', $user->login);
+        self::assertEquals('Alfred Testbenutzer', $user->name);
     }
     
-    public function testPostsNewUser()
+    public function testPostsNewObject()
     {
-        $user = new User();
-        $user->setLogin('atest')->setName('Alfons Testhuber');
+        $user = new \stdClass();
+        $user->login = 'atest';
+        $user->name = 'Alfons Testhuber';
         
         $this->_client->expects($this->at(0))
                       ->method('post')
@@ -85,10 +84,11 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
         $this->_storage->store($user);
     }
     
-    public function testPutsExistingUser()
+    public function testPutsExistingObject()
     {
-        $user = new User();
-        $user->setLogin('atest')->setName('Alfons Testhuber');
+        $user = new \stdClass();
+        $user->login = 'atest';
+        $user->name = 'Alfons Testhuber';
         $user->id = 42;
         
         $this->_client->expects($this->at(0))
