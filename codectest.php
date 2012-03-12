@@ -4,6 +4,12 @@ use Json\Codec;
 
 $json = new Codec();
 
-var_dump($json->encode(Array('das ist ein Test')));
+var_dump(
+    $json->encode(Array('das ist ein Test')) == '["das ist ein Test"]'
+);
 
-// IMPLEMENT LESSON 1 TESTS HERE
+$obj = new stdClass();
+$obj->name = 'Hans Wurst';
+var_dump(
+    $json->encode($obj) == '{"name":"Hans Wurst"}'
+);
