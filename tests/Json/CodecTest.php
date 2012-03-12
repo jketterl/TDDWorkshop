@@ -1,6 +1,14 @@
 <?php
 namespace Json;
 
+/**
+ * @author jketterl
+ * 
+ * @group encoders
+ * @group json
+ * 
+ * @covers Json\Codec
+ */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
     public function testEncodesArray()
