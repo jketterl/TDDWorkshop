@@ -38,4 +38,37 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setPassword($pwdPlain);
         self::assertSame($pwdHashed, $user->getPassword());
     }
+    
+    /**
+     * This function will return a mocked validator object that will always respond with whatever you passed as the
+     * $return parameter.
+
+     * @param boolean $return
+     */
+    protected function getMockedValidator($return)
+    {
+        $mock = $this->getMock('Validator\ValidatorInterface');
+        $mock->expects($this->any())->method('isValid')->will($this->returnValue($return));
+        return $mock;
+    }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage not secure enough
+     */
+    public function testRejectsPasswordWhenInvalid()
+    {
+        $user = new User();
+        $user->setPasswordValidator($this->getMockedValidator(false));
+        $user->setPassword('ambiguous');
+    }
+    
+    public function testAcceptsPasswordWhenValid()
+    {
+        $user = new User();
+        $user->setPasswordValidator($this->getMockedValidator(true));
+        $password = 'ambiguous';
+        $user->setPassword($password);
+        self::assertEquals(sha1($password), $user->getPassword());
+    }
 }

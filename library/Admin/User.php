@@ -1,6 +1,10 @@
 <?php
 namespace Admin;
 
+use Validator\Password;
+
+use Validator\ValidatorInterface;
+
 class User
 {
     public $id;
@@ -8,6 +12,26 @@ class User
     public $name;
     public $password;
         
+    /**
+     * Validator, um bei Bedarf das Passwort zu validieren
+     * 
+     * @var \Validator\ValidatorInterface
+     */
+    private $_passwordValidator;
+    
+    public function getPasswordValidator()
+    {
+        if (!isset($this->_passwordValidator)) {
+            $this->_passwordValidator = new Password();
+        }
+        return $this->_passwordValidator;
+    }
+    
+    public function setPasswordValidator(ValidatorInterface $validator)
+    {
+        $this->_passwordValidator = $validator;
+    }
+    
     public function setId($id)
     {
         $this->id = $id;
@@ -42,6 +66,9 @@ class User
     
     public function setPassword($password)
     {
+        if (!$this->getPasswordValidator()->isValid($password)) {
+            throw new \InvalidArgumentException('new password is not secure enough');
+        }
         $this->password = sha1($password);
     }
     
