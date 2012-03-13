@@ -11,6 +11,12 @@ namespace Json;
  */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
+    public function testInheritance()
+    {
+        $encoder = new Codec();
+        self::assertInstanceOf('Json\Codec', $encoder);
+    }
+    
     public function testEncodesArray()
     {
         $encoder = new Codec();
@@ -21,6 +27,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         );
         
         $output = $encoder->encode($array);
+        self::assertInternalType('string', $output);
         self::assertEquals('["text1","text2","text3"]', $output);
     }
     
@@ -32,6 +39,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $object->bla = 'blubb';
         
         $output = $encoder->encode($object);
+        self::assertInternalType('string', $output);
         self::assertEquals('{"foo":"bar","bla":"blubb"}', $output);
     }
     
@@ -41,6 +49,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         
         $output = $decoder->decode('["text1","text2","text3"]');
         
+        self::assertInternalType('array', $output);
         self::assertEquals(
             Array(
                 'text1',
@@ -60,6 +69,8 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
         $object->bla = 'blubb';
+        
+        self::assertInternalType('object', $output);
         self::assertEquals($object, $output);
     }
 }
