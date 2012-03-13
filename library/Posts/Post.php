@@ -30,6 +30,12 @@ class Post
         return $this;
     }
     
+    public function setValidator(ValidatorInterface $validator)
+    {
+        $this->_textValidator = $validator;
+        return $this;
+    }
+    
     public function setText($text)
     {
         $isValid = $this->getValidator()->isValid($text);
