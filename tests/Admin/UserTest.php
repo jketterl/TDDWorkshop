@@ -5,7 +5,7 @@ namespace Admin;
  * 
  * @author djungowski
  * 
- * @covers Posts\User
+ * @covers Admin\User
  */
 class UserTest extends \PHPUnit_Framework_TestCase
 {
