@@ -1,5 +1,5 @@
 <?php
-namespace Posts;
+namespace Admin;
 
 /**
  * 
