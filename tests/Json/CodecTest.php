@@ -11,10 +11,10 @@ namespace Json;
  */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInheritance()
+    public function testInterface()
     {
         $encoder = new Codec();
-        self::assertInstanceOf('Json\Codec', $encoder);
+        self::assertInstanceOf('Json\CodecInterface', $encoder);
     }
     
     public function testEncodesArray()
