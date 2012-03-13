@@ -38,14 +38,14 @@ class PostTest extends \PHPUnit_Framework_TestCase
      * 
      * @expectedException InvalidArgumentException
      */
-    public function testSetInvalidPasswordWithValidator()
+    public function testSetInvalidTextWithValidator()
     {
         $post = new Post();
         $post->setTextValidator($this->getValidatorMock(false));
         $post->setText('istgradegalwelchentextichhiereingebe');
     }
     
-    public function testSetValidPasswordWithValidator()
+    public function testSetValidTextWithValidator()
     {
         $post = new Post();
         $post->setTextValidator($this->getValidatorMock(true));
