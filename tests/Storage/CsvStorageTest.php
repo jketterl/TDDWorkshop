@@ -24,12 +24,13 @@ class CsvStorageTest extends \PHPUnit_Framework_TestCase
         file_put_contents(
             $this->_csvFile,
             <<<EOF
-atest;Alfons Testhuber
-btest;Beatrix Testmeier
-cbeispiel;Conrad Beispieluser
+Wir melden uns heute live von der CeBIT.;Alfons Testhuber
+Die Teilnehmer der Veranstaltung betreten erstmal den roten Teppich.;Beatrix Testmeier
+Auch bekannte Gesichter wie Mathias Plica konnten gesichtet werden!;Conrad Beispieluser
+Wir erwarten gespannt die Eröffnung des Büffets :);Conrad Beispieluser
 EOF
         );
-        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'login', 1 => 'name'));
+        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'text', 1 => 'user'));
     }
      
     public function testRetrievesObject()
@@ -37,6 +38,7 @@ EOF
         $post = $this->_storage->find(1);
         self::assertInstanceOf('stdClass', $post);
         self::assertRegExp('/Teilnehmer.*betreten/', $post->text);
+        self::assertEquals('Beatrix Testmeier', $post->user);
     }
     
     public function testRetrievesAll()
