@@ -1,8 +1,6 @@
 <?php
 namespace Posts;
 
-use Validator\ValidatorInterface;
-
 use Validator\Profanity;
 
 class Post
@@ -22,18 +20,6 @@ class Post
             $this->_textValidator = new Profanity();
         }
         return $this->_textValidator;
-    }
-    
-    public function setValidator(ValidatorInterface $validator)
-    {
-        $this->_textValidator = $validator;
-        return $this;
-    }
-    
-    public function setValidator(ValidatorInterface $validator)
-    {
-        $this->_textValidator = $validator;
-        return $this;
     }
     
     public function setText($text)

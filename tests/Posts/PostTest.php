@@ -7,13 +7,6 @@ namespace Posts;
  */
 class PostTest extends \PHPUnit_Framework_TestCase
 {
-    protected function getMockedValidator($return)
-    {
-        $mock = $this->getMock('Validator\ValidatorInterface');
-        $mock->expects($this->any())->method('isValid')->will($this->returnValue($return));
-        return $mock;
-    }
-    
     public function testReturnsText()
     {
         $message = 'Das ist ein Testpost.';
@@ -36,25 +29,10 @@ class PostTest extends \PHPUnit_Framework_TestCase
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Keine Schimpfworte
      */
-    public function testThrowsExceptionWhenValidationFails()
+    public function testRejectsSwearWords()
     {
-        $message = 'das ist eine testmessage';
+        $message = 'this is a fucking bad language post';
         $post = new Post();
-        // get a validator that will always return false
-        $validator = $this->getMockedValidator(false);
-        $post->setValidator($validator);
         $post->setText($message);
-    }
-    
-    public function testTextIsSetWhenValidationPasses()
-    {
-        $message = 'das ist eine testmessage';
-        $post = new Post();
-        // get a validator that will always return true
-        $validator = $this->getMockedValidator(true);
-        $post->setValidator($validator);
-        $post->setText($message);
-        
-        self::assertEquals($post->getText(), $message);
     }
 }
