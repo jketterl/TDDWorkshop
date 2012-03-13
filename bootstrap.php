@@ -4,6 +4,8 @@ spl_autoload_register(
         $dir = __DIR__ . '/';
         if (preg_match('/Test$/', $name)) {
             $dir .= 'tests/';
+        } elseif (preg_match('/bovigo/', $name)) {
+            $dir .= 'externals/vfsStream/src/main/php/';
         } else {
             $dir .= 'library/';
         }
