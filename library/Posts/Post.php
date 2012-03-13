@@ -14,7 +14,7 @@ class Post
      */
     private $_textValidator;
     
-    protected function getValidator()
+    public function getValidator()
     {
         if (!isset($this->_textValidator)) {
             $this->_textValidator = new Profanity();
