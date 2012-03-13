@@ -24,4 +24,15 @@ class PostTest extends \PHPUnit_Framework_TestCase
         
         self::assertEquals($message, (string) $post);
     }
+    
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Keine Schimpfworte
+     */
+    public function testRejectsSwearWords()
+    {
+        $message = 'this is a fucking bad language post';
+        $post = new Post();
+        $post->setText($message);
+    }
 }
