@@ -1,6 +1,8 @@
 <?php
 namespace Posts;
 
+use Storage\StorageInterface;
+
 use Validator\ValidatorInterface;
 
 use Validator\Profanity;
@@ -48,5 +50,21 @@ class Post
     public function __toString()
     {
         return $this->getText();
+    }
+    
+    public function setStorage(StorageInterface $storage)
+    {
+        $this->_storage = $storage;
+        return $this;
+    }
+    
+    public function getStorage()
+    {
+        return $this->_storage;
+    }
+    
+    public function store()
+    {
+        $this->getStorage()->store($this);
     }
 }
