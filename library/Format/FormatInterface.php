@@ -1,7 +1,9 @@
 <?php
 namespace Format;
 
-interface FormatInterface
+use Json\CodecInterface;
+
+interface FormatInterface extends CodecInterface
 {
     /**
      * Dateiendung fuer das entsprechende Format ausgeben, ohne Punkt

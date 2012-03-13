@@ -8,9 +8,15 @@ class RestStorage implements StorageInterface
     protected $_client;
     protected $_baseUrl;
     protected $_className;
+    
+    /**
+     * Objekt, das das FormatInterface sowie das CodecInterface verwendet
+     * 
+     * @var Format\FormatInterface
+     */
     protected $_format;
     
-    public function __construct($baseUrl, $className, $format = 'json')
+    public function __construct($baseUrl, $className, \Format\FormatInterface $format)
     {
         $this->_baseUrl = $baseUrl;
         $this->_className = $className;
@@ -30,7 +36,7 @@ class RestStorage implements StorageInterface
 
     public function find($id)
     {
-        $data = $this->decode($this->getClient()->get($this->_baseUrl . '/' . $id . '.' . $this->_format));
+        $data = $this->decode($this->getClient()->get($this->_baseUrl . '/' . $id . '.' . $this->_format->getFileExtension()));
         return $this->toObject($data);
     }
     
@@ -43,15 +49,15 @@ class RestStorage implements StorageInterface
         }
         
         if (isset($object->id)) {
-            $this->getClient()->put($this->_baseUrl . '/' . $object->id . '.' . $this->_format, $data);
+            $this->getClient()->put($this->_baseUrl . '/' . $object->id . '.' . $this->_format->getFileExtension(), $data);
         } else {
-            $this->getClient()->post($this->_baseUrl . '.' . $this->_format, $data);
+            $this->getClient()->post($this->_baseUrl . '.' . $this->_format->getFileExtension(), $data);
         }
     }
     
     public function findAll()
     {
-        $response = $this->decode($this->getClient()->get($this->_baseUrl . '.' . $this->_format));
+        $response = $this->decode($this->getClient()->get($this->_baseUrl . '.' . $this->_format->getFileExtension()));
         $result = Array();
         foreach ($response as $data) {
             $result[] = $this->toObject($data);
@@ -61,9 +67,7 @@ class RestStorage implements StorageInterface
     
     protected function decode($in)
     {
-        // json_decode should not be hardcoded here, it should somehow be exchangeble (see the $format argument in the
-        // constructor) but it will work fine for demonstration purposes
-        return json_decode($in);
+        return $this->_format->decode($in);
     }
     
     protected function toObject($data)

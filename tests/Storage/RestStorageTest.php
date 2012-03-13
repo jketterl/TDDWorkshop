@@ -14,10 +14,26 @@ class RestStorageTest extends \PHPUnit_Framework_TestCase
     protected $_client;
     protected $_storage;
     
+    private function getFormatMock()
+    {
+        $mock = $this->getMock('Format\FormatInterface');
+        $mock->expects($this->once())
+             ->method('getFileExtension')
+             ->will($this->returnValue('json'));
+             
+        $mock->expects($this->any())
+             ->method('decode')
+             ->will($this->returnCallback(function($in) {
+                 return json_decode($in);
+             }));
+        return $mock;
+    }
+    
     protected function setUp()
     {
         $this->_client = $this->getMock('Http\HttpClientInterface');
-        $this->_storage = new RestStorage('http://localhost/rest/user', 'stdClass');
+        $format = $this->getFormatMock();
+        $this->_storage = new RestStorage('http://localhost/rest/user', 'stdClass', $format);
         $this->_storage->setClient($this->_client);
     }
     
