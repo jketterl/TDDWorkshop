@@ -11,6 +11,12 @@ namespace Json;
  */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
+    public function testInterface()
+    {
+        $encoder = new Codec();
+        self::assertInstanceOf('Json\CodecInterface', $encoder);
+    }
+    
     public function testEncodesArray()
     {
         $json = new Codec();
@@ -18,9 +24,11 @@ class CodecTest extends \PHPUnit_Framework_TestCase
             'das ist ein Test'
         );
         
+        $output = $json->encode($array);
+        self::assertInternalType('string', $output);
         self::assertEquals(
             '["das ist ein Test"]',
-            $json->encode($array)
+            $output
         );
     }
     
@@ -30,9 +38,11 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->name = 'Hans Wurst';
         
+        $output = $json->encode($object);
+        self::assertInternalType('string', $output);
         self::assertEquals(
             '{"name":"Hans Wurst"}',
-            $json->encode($object)
+            $output
         );
     }
     
@@ -42,6 +52,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         
         $output = $decoder->decode('["text1","text2","text3"]');
         
+        self::assertInternalType('array', $output);
         self::assertEquals(
             Array(
                 'text1',
@@ -61,6 +72,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->foo = 'bar';
         $object->bla = 'blubb';
+        self::assertInternalType('object', $object);
         self::assertEquals($object, $output);
     }
 }
