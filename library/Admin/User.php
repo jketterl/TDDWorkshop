@@ -7,14 +7,7 @@ class User
     public $login;
     public $name;
     public $password;
-    
-    /**
-     * Validator, um bei Bedarf das Passwort zu validieren
-     * 
-     * @var \Validator\ValidatorInterface
-     */
-    private $_passwordValidator;
-    
+        
     public function setId($id)
     {
         $this->id = $id;
