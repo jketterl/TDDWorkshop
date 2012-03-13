@@ -11,6 +11,12 @@ namespace Validator;
  */
 class ProfanityTest extends \PHPUnit_Framework_TestCase
 {
+    public function testInheritance()
+    {
+        $validator = new Profanity();
+        $this->assertInstanceOf('Validator\ValidatorInterface', $validator);
+    }
+    
 	public function testIsValidTrue()
 	{
 		$validator = new Profanity();
