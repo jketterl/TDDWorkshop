@@ -1,6 +1,8 @@
 <?php
 namespace Storage;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * @author jketterl
  * 
@@ -17,8 +19,17 @@ class CsvStorageTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->_csvFile = __DIR__ . '/../../posts.csv';
-        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'text'));
+        vfsStream::setup($this->_vfsNamespace);
+        $this->_csvFile = vfsStream::url($this->_vfsNamespace . '/test.csv');
+        file_put_contents(
+            $this->_csvFile,
+            <<<EOF
+atest;Alfons Testhuber
+btest;Beatrix Testmeier
+cbeispiel;Conrad Beispieluser
+EOF
+        );
+        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'login', 1 => 'name'));
     }
      
     public function testRetrievesObject()
