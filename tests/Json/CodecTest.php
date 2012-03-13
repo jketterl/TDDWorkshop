@@ -15,6 +15,7 @@ class CodecTest extends \PHPUnit_Framework_TestCase
     {
         $encoder = new Codec();
         self::assertInstanceOf('Json\CodecInterface', $encoder);
+        self::assertInstanceOf('Format\FormatInterface', $encoder);
     }
     
     public function testEncodesArray()
@@ -72,5 +73,11 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         
         self::assertInternalType('object', $output);
         self::assertEquals($object, $output);
+    }
+    
+    public function testGetFileExtension()
+    {
+        $codec = new Codec();
+        self::assertSame('json', $codec->getFileExtension());
     }
 }

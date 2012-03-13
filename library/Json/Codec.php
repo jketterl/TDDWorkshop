@@ -1,7 +1,9 @@
 <?php
 namespace Json;
 
-class Codec implements CodecInterface
+use Format\FormatInterface;
+
+class Codec implements CodecInterface, FormatInterface
 {
     protected $_utf;
     
@@ -21,5 +23,10 @@ class Codec implements CodecInterface
     public function decode($data)
     {
         return json_decode($data);
+    }
+    
+    public function getFileExtension()
+    {
+        return 'json';
     }
 }
