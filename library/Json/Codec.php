@@ -3,7 +3,7 @@ namespace Json;
 
 use Format\FormatInterface;
 
-class Codec implements CodecInterface, FormatInterface
+class Codec implements FormatInterface
 {
     protected $_utf;
     
