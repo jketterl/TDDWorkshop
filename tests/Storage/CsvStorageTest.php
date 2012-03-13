@@ -65,8 +65,10 @@ EOF
      */
     public function testThrowsExceptionOnEof()
     {
-        // our csv file only contains three lines, so accessing index 3 should translate do line #4
-        $this->_storage->find(3);
+        // count the number of lines in our csv file
+        $lines = count(file($this->_csvFile));
+        // indices start counting at 0, so accessing the storage at the line count should trigger an exception.
+        $this->_storage->find($lines);
     }
     
     /**
