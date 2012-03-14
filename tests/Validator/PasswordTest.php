@@ -28,37 +28,54 @@ class PasswordTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($pass->isValid('einVal1desPas5wort'));
     }
     
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage Fehlende Zeichen
+     */
     public function testInvalidPasswordWithMissingNumber()
     {
         $pass = new Password();
-        self::assertFalse($pass->isValid('keinValidesPasswort'));
+        $pass->isValid('keinValidesPasswort');
     }
     
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage Fehlende Zeichen
+     */
     public function testInvalidPasswordWithMissingCapitalLetter()
     {
         $pass = new Password();
-        self::assertFalse($pass->isValid('keinval1despas5wort'));
+        $pass->isValid('keinval1despas5wort');
     }
     
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage Fehlende Zeichen
+     */
     public function testInvalidPasswordWithMissingLowerCaseLetter()
     {
         $pass = new Password();
-        self::assertFalse($pass->isValid('KEINVAL1DESPAS5WORT'));
+        $pass->isValid('KEINVAL1DESPAS5WORT');
     }
     
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage Fehlende Zeichen
+     */
     public function testInvalidPasswordOnlyNumbers()
     {
         $pass = new Password();
-        self::assertFalse($pass->isValid('12345678'));
+        $pass->isValid('12345678');
     }
     
     /**
      * Minimum: 8 Zeichen
-     * 
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage Zu kurzes Passwort
      */
     public function testPasswordTooShort()
     {
         $pass = new Password();
-        self::assertFalse($pass->isValid('zuKur5'));
+        $pass->isValid('zuKur5');
     }
 }

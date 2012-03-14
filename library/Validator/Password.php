@@ -17,18 +17,14 @@ class Password implements ValidatorInterface
      */
     public function isValid($data)
     {
-        try {
-            // Als erstes auf die Laenge pruefen
-            $this->checkLength($data);
-            // Auf Kleinbuchstaben pruefen
-            $this->checkOccurences('/[a-z]+/', $data);
-            // Auf Grossbuchstaben pruefen
-            $this->checkOccurences('/[A-Z]+/', $data);
-            // Auf Zahlen pruefen
-            $this->checkOccurences('/[0-9]+/', $data);
-        } catch (\InvalidArgumentException $e) {
-            return false;
-        }
+        // Als erstes auf die Laenge pruefen
+        $this->checkLength($data);
+        // Auf Kleinbuchstaben pruefen
+        $this->checkOccurences('/[a-z]+/', $data);
+        // Auf Grossbuchstaben pruefen
+        $this->checkOccurences('/[A-Z]+/', $data);
+        // Auf Zahlen pruefen
+        $this->checkOccurences('/[0-9]+/', $data);
         
         return true;
     }
@@ -42,7 +38,7 @@ class Password implements ValidatorInterface
     private function checkLength($data)
     {
         if (strlen($data) < 8) {
-            throw new \InvalidArgumentException('Zu kurzes Passwort');
+            throw new ValidatorException('Zu kurzes Passwort');
         }
     }
     
@@ -58,7 +54,7 @@ class Password implements ValidatorInterface
         // preg_match liefert die Anzahl der Vorkommnisse eines Patterns
         // Wir erhalten also einen Integer
         if (preg_match($regexPattern, $data, $matches) === 0) {
-            throw new \InvalidArgumentException('Fehlende Zeichen im Passwort: "' . $regexPattern . '"');
+            throw new ValidatorException('Fehlende Zeichen im Passwort: "' . $regexPattern . '"');
         }
     }
 }
