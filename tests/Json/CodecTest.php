@@ -75,4 +75,10 @@ class CodecTest extends \PHPUnit_Framework_TestCase
         self::assertInternalType('object', $object);
         self::assertEquals($object, $output);
     }
+
+    public function testGetFileExtension()
+    {
+        $codec = new Codec();
+        self::assertSame('json', $codec->getFileExtension());
+    }
 }
