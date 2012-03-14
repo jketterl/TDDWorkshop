@@ -23,7 +23,7 @@ class Profanity implements ValidatorInterface
     {
         foreach ($this->_forbiddenWords as $word) {
             if (strstr($data, $word)) {
-                return false;
+                throw new ValidatorException('Your text contains blacklisted words');
             } 
         }
         

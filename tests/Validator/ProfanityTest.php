@@ -17,13 +17,23 @@ class ProfanityTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($validator->isValid('Dies ist ein sozial verträglicher Text'));
     }
     
-    public function testValidateFalse()
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage contains blacklisted words
+     */
+    public function testThrowsExceptionOnInvalidWord()
     {
         $validator = new Profanity();
-        self::assertFalse($validator->isValid('fuck'));
-        self::assertFalse($validator->isValid('shit'));
-        self::assertFalse($validator->isValid('Mario Barth'));
-        self::assertFalse($validator->isValid('Dies ist ein fuck Lauftext'));
-        self::assertFalse($validator->isValid('fuck ist shit und überhaupt!'));
+        $validator->isValid('fuck');
+    }
+    
+    /**
+     * @expectedException Validator\ValidatorException
+     * @expectedExceptionMessage contains blacklisted words
+     */
+    public function testThrowsExceptionOnInvalidWordInSentence()
+    {
+        $validator = new Profanity();
+        $validator->isValid('Dies ist ein fuck Lauftext');
     }
 }
