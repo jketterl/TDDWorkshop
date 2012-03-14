@@ -2,7 +2,7 @@
 spl_autoload_register(
     function($name){
         $dir = __DIR__ . '/';
-        if (preg_match('/Test$/', $name)) {
+        if (preg_match('/(Test|Mockable)$/', $name)) {
             $dir .= 'tests/';
         } elseif (preg_match('/bovigo/', $name)) {
             $dir .= 'externals/vfsStream/src/main/php/';
