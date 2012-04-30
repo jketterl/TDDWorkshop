@@ -1,13 +1,16 @@
 $(document).ready(function(){
+    var container = $('div.newsticker');
+
+	var renderPosts = function(data) {
+		container.empty();
+		data.reverse().forEach(function(post){
+			container.append($('<div class="post">' + post.text + '</div>'));
+		});
+	}	
+
     var loadPosts = function(){
-        var container = $('div.newsticker');
         $.ajax('api.php', {
-            success:function(data){
-                container.empty();
-                data.reverse().forEach(function(post){
-                    container.append($('<div class="post">' + post.text + '</div>'));
-                });
-            }
+            success: renderPosts
         });
         setTimeout(loadPosts, 10000);
     };
@@ -18,7 +21,8 @@ $(document).ready(function(){
 		var target = $(event.target);
 		$.ajax(target.attr('action'), {
 			type: 'post', 
-			data: target.serialize()
+			data: target.serialize(),
+			done: renderPosts
 		});
 	});
 });
