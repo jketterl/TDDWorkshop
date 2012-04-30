@@ -22,7 +22,11 @@ $(document).ready(function(){
 		$.ajax(target.attr('action'), {
 			type: 'post', 
 			data: target.serialize(),
-			done: renderPosts
+			done: renderPosts,
+			error: function(jqXHR, textStatus, errorThrown) {
+				var errorMessage = $.parseJSON(jqXHR.responseText);
+				alert('Fehler beim Posten: "' + errorMessage.message + '"');
+			}
 		});
 	});
 });

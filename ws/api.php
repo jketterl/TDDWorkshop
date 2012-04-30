@@ -11,10 +11,20 @@ header('Content-Type:application/json');
 $postsFile = __DIR__ . '/../posts.csv';
 
 if (isset($_POST['new-msg'])) {
-	$post = new Post();
-	$post->setText($_POST['new-msg']);
-	$storage = new CsvStorage('Posts\Post', $postsFile, array(0 => 'text'));
-	$storage->store($post);
+	try {
+		$post = new Post();
+		$post->setText($_POST['new-msg']);
+		$storage = new CsvStorage('Posts\Post', $postsFile, array(0 => 'text'));
+		$storage->store($post);
+	} catch (Exception $e) {
+		$json = new Codec();
+		$details = array(
+			'message' => $e->getMessage()
+		);
+		header("HTTP/1.0 500 Internal Server Error");
+		echo $json->encode($details);
+		exit;
+	}
 }
 
 // collect all posts from the CSV into an array
