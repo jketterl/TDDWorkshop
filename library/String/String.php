@@ -17,9 +17,4 @@ class String
         if (strlen($this->_value) <= $this->_maxLength) return $this->_value;
         return substr($this->_value, 0, $this->_maxLength - 3) . '...';
     }
-    
-    public function __toString()
-    {
-        return $this->getEllipsis($this->_value);
-    }
 }
