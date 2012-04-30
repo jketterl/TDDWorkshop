@@ -52,7 +52,12 @@ class CsvStorage implements StorageInterface
     
     public function store($object)
     {
-        throw new \RuntimeException('storing into a csv file is not supported');
+        $fp = fopen($this->_file, 'a');
+        $data = Array();
+        foreach ($this->_mapping as $offset => $property) {
+            $data[$offset] = $object->$property;
+        }
+        fputcsv($fp, $data, ';', '"');
     }
     
     protected function toObject($data)
