@@ -14,9 +14,4 @@ class String
     {
         // IMPLEMENT LESSON 3 CODE HERE
     }
-    
-    public function __toString()
-    {
-        return $this->getEllipsis($this->_value);
-    }
 }
