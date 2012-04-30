@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/../bootstrap.php');
 
 use Json\Codec;
+use String\String;
 
 header('Content-Type:application/json');
 
@@ -10,8 +11,9 @@ $posts = Array();
 $file = fopen(__DIR__ . '/../posts.csv', 'r');
 
 while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
+    $text = new String($line[0]);
     $posts[] = Array(
-        'text' => $line[0]
+        'text' => $text->getEllipsis()
     );
 }
 
