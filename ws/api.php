@@ -32,7 +32,7 @@ $posts = Array();
 $file = fopen($postsFile, 'r');
 
 while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
-    $text = new String($line[0]);
+    $text = new String($line[1]);
     $posts[] = Array(
         'text' => $text->getEllipsis()
     );
