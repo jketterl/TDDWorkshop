@@ -38,6 +38,10 @@ while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
     );
 }
 
+$frontendData = array(
+    'posts' => $posts
+);
+
 // encode array for the client
 $json = new Codec();
-echo $json->encode($posts);
+echo $json->encode($frontendData);

@@ -3,7 +3,7 @@ $(document).ready(function(){
 
 	var renderPosts = function(data) {
 		container.empty();
-		data.reverse().forEach(function(post){
+		data.posts.reverse().forEach(function(post){
 			container.append($('<div class="post">' + post.text + '</div>'));
 		});
 	};
