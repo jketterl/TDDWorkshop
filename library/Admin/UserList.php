@@ -30,8 +30,10 @@ class UserList
     {
         $this->_users = array();
         $file = fopen($this->_usersFile, 'r');
-
+        
+        $key = 0;
         while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
+            array_unshift($line, $key++);
             $user = new User();
             $user->load($line);
             $this->_users[] = $user;
