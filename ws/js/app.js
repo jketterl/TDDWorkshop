@@ -6,7 +6,7 @@ $(document).ready(function(){
 		data.reverse().forEach(function(post){
 			container.append($('<div class="post">' + post.text + '</div>'));
 		});
-	}	
+	};
 
     var loadPosts = function(){
         $.ajax('api.php', {
