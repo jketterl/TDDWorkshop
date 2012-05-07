@@ -14,6 +14,13 @@ class PostTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
     
+    public function testSetUserId()
+    {
+        $post = new Post();
+        $post->setUserId(42);
+        self::assertEquals(42, $post->getUserId());
+    }
+    
     public function testReturnsText()
     {
         $message = 'Das ist ein Testpost.';
