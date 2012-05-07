@@ -28,23 +28,32 @@ class UserList
     
     private function read()
     {
-        $this->_users = array();
-        $file = fopen($this->_usersFile, 'r');
-        
-        $key = 0;
-        while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
-            array_unshift($line, $key++);
-            $user = new User();
-            $user->load($line);
-            $this->_users[] = $user;
+        if (!isset($this->_users)) {
+            $this->_users = array();
+            $file = fopen($this->_usersFile, 'r');
+            
+            $key = 0;
+            while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
+                array_unshift($line, $key++);
+                $user = new User();
+                $user->load($line);
+                $this->_users[] = $user;
+            }
         }
     }
     
     public function getAll()
     {
-        if (!isset($this->_users)) {
-            $this->read();
-        }
+        $this->read();
         return $this->_users;
+    }
+    
+    public function getById($id)
+    {
+        $this->read();
+        if (!isset($this->_users[$id])) {
+            throw new \OutOfBoundsException("User doesn't exist");
+        }
+        return $this->_users[$id];
     }
 }

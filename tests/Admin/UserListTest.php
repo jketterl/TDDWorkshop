@@ -38,4 +38,27 @@ class UserListTest extends \PHPUnit_Framework_TestCase
         self::assertEquals(2, count($users));
         self::assertInstanceOf('Admin\User', $users[0]);
     }
+    
+    public function testGetById()
+    {
+        $list = $this->getUserList();
+        $userData = array(
+            1,
+            'Backup User',
+            '4be30d9814c6d4e9800e0d2ea9ec9fb00efa887b'
+        );
+        $user = new User;
+        $user->load($userData);
+        self::assertEquals($user, $list->getById(1));
+    }
+    
+    /**
+     * @expectedException OutOfBoundsException
+     * @expectedExceptionMessage User doesn't exist
+     */
+    public function testGetByIdFails()
+    {
+        $list = $this->getUserList();
+        $list->getById(42);
+    }
 }
