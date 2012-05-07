@@ -51,7 +51,6 @@ $(document).ready(function(){
 			data: target.serialize(),
 			success: renderPostsAndUsersAfterFormUsage,
 			error: function(jqXHR, textStatus, errorThrown) {
-			    $('div.new-user').hide();
 				var errorMessage = $.parseJSON(jqXHR.responseText);
 				alert('Fehler beim Posten/Anlegen: "' + errorMessage.message + '"');
 			}
