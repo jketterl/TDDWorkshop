@@ -36,17 +36,6 @@ class CsvStorageTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage not supported
-     */
-    public function testThrowsExceptionOnStore()
-    {
-        $post = new \stdClass();
-        $post->text = 'das ist ein neuer liveticker-eintrag';
-        $this->_storage->store($post);
-    }
-    
-    /**
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage EOF reached
      */
@@ -65,5 +54,25 @@ class CsvStorageTest extends \PHPUnit_Framework_TestCase
     public function testThrowsExceptionOnMissingFile()
     {
         $storage = new CsvStorage('stdClass', 'dummyfile.xxx');
+    }
+    
+    public function testStoresObject()
+    {
+        $file = tempnam('/tmp', 'csvtest-');
+        $storage = new CsvStorage('stdClass', $file, Array(0 => 'id', 1 => 'text'));
+        
+        $object = new \stdClass();
+        $object->id = 42;
+        $object->text = 'goodbye and thanks for all the fish';
+        
+        $storage->store($object);
+        
+        $fp = fopen($file, 'r');
+        $line = fgetcsv($fp, 0, ';', '"');
+        self::assertEquals(Array(42, 'goodbye and thanks for all the fish'), $line);
+        fclose($fp);
+        
+        // clean up
+        unlink($file);
     }
 }
