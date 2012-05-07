@@ -14,7 +14,7 @@ if (isset($_POST['new-msg'])) {
 	try {
 		$post = new Post();
 		$post->setText($_POST['new-msg']);
-		$storage = new CsvStorage('Posts\Post', $postsFile, array(0 => 'text'));
+		$storage = new CsvStorage('Posts\Post', $postsFile, array(0 => 'userid', 1 => 'text'));
 		$storage->store($post);
 	} catch (Exception $e) {
 		$json = new Codec();

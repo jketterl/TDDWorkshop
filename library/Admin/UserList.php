@@ -16,7 +16,7 @@ class UserList
      * 
      * @var Array
      */
-    private $_users = array();
+    private $_users;
     
     public function __construct($usersFile)
     {
@@ -28,11 +28,21 @@ class UserList
     
     private function read()
     {
-        $users = file_get_contents($this->_usersFile);
+        $this->_users = array();
+        $file = fopen($this->_usersFile, 'r');
+
+        while (($line = fgetcsv($file, 0, ';', '"')) !== FALSE) {
+            $user = new User();
+            $user->load($line);
+            $this->_users[] = $user;
+        }
     }
     
     public function getAll()
     {
-        $this->read();
+        if (!isset($this->_users)) {
+            $this->read();
+        }
+        return $this->_users;
     }
 }
