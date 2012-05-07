@@ -8,6 +8,8 @@ use Validator\Profanity;
 class Post
 {
     public $text;
+    
+    public $userid;
 
     /**
      * Ein moeglicher Textvalidator
@@ -43,6 +45,16 @@ class Post
     public function getText()
     {
         return $this->text;
+    }
+    
+    public function setUserId($userId)
+    {
+        $this->userid = $userId;
+    }
+    
+    public function getUserId()
+    {
+        return $this->userid;
     }
     
     public function __toString()

@@ -18,7 +18,7 @@ class CsvStorageTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->_csvFile = __DIR__ . '/../../posts.csv';
-        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'text'));
+        $this->_storage = new CsvStorage('stdClass', $this->_csvFile, Array(0 => 'userid', 1 => 'text'));
     }
      
     public function testRetrievesObject()
