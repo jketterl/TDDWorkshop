@@ -12,6 +12,8 @@
 			<b>Neuen Eintrag schreiben:</b><br />
 			<form action="api.php" method="post">
 				<textarea name="new-msg"></textarea>
+				Posten als:
+				<select name="userid"></select><br />
 				<input type="submit" value="Posten" />
 			</form>
 		</div>
