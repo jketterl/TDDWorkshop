@@ -45,8 +45,12 @@ $(document).ready(function(){
 			success: renderPostsAndUsers,
 			error: function(jqXHR, textStatus, errorThrown) {
 				var errorMessage = $.parseJSON(jqXHR.responseText);
-				alert('Fehler beim Posten: "' + errorMessage.message + '"');
+				alert('Fehler beim Posten/Anlegen: "' + errorMessage.message + '"');
 			}
 		});
+	});
+	
+	$('span.new-user').bind('click', function(event) {
+	    $('div.new-user').show();
 	});
 });

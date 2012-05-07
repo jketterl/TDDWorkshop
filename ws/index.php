@@ -13,8 +13,16 @@
 			<form action="api.php" method="post">
 				<textarea name="new-msg"></textarea>
 				Posten als:
-				<select name="userid"></select><br />
+				<select name="userid"></select> <span class="new-user">[+]</span><br />
 				<input type="submit" value="Posten" />
+			</form>
+		</div>
+		<div class="new-user">
+			<b>Neuen Benutzer anlegen</b>
+			<form action="api.php" method="post">
+				Name: <input type="text" name="new-user-name" /> <br />
+				Passwort: <input type="password" name="new-user-password" /><br />
+				<input type="submit" value="Anlegen" />
 			</form>
 		</div>
 		<DIV class="newsticker"></DIV>

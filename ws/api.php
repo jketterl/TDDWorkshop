@@ -2,6 +2,7 @@
 require_once(__DIR__ . '/../bootstrap.php');
 
 use Admin\UserList;
+use Admin\User;
 use Json\Codec;
 use String\String;
 use Posts\Post;
@@ -10,27 +11,33 @@ use Storage\CsvStorage;
 header('Content-Type:application/json');
 
 $postsFile = __DIR__ . '/../posts.csv';
+$usersFile = __DIR__ . '/../users.csv';
 
-if (isset($_POST['new-msg'])) {
-	try {
+try {
+    if (isset($_POST['new-msg'])) {
 		$post = new Post();
 		$post->setUserId($_POST['userid']);
 		$post->setText($_POST['new-msg']);
 		$storage = new CsvStorage('Posts\Post', $postsFile, array(0 => 'userid', 1 => 'text'));
 		$storage->store($post);
-	} catch (Exception $e) {
-		$json = new Codec();
-		$details = array(
-			'message' => $e->getMessage()
-		);
-		header("HTTP/1.0 500 Internal Server Error");
-		echo $json->encode($details);
-		exit;
+	} else if (isset($_POST['new-user-name'])) {
+	    $user = new User();
+	    $user->setName($_POST['new-user-name']);
+	    $user->setPassword($_POST['new-user-password']);
+	    $storage = new CsvStorage('Admin\User', $usersFile, array(0 => 'userid', 1 => 'name'));
+		$storage->store($user);
 	}
+} catch (Exception $e) {
+	$json = new Codec();
+	$details = array(
+		'message' => $e->getMessage()
+	);
+	header("HTTP/1.0 500 Internal Server Error");
+	echo $json->encode($details);
+	exit;
 }
 
 // read all users
-$usersFile = __DIR__ . '/../users.csv';
 $userList = new UserList($usersFile);
 $users = $userList->getAll();
 
