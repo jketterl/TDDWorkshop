@@ -24,9 +24,15 @@ $(document).ready(function(){
 	
 	var renderPostsAndUsers = function(data)
 	{
-	    $('div.new-user').hide();
 	    renderPosts(data.posts.reverse());
 	    renderUsers(data.users);
+	};
+	
+	var renderPostsAndUsersAfterFormUsage = function(data)
+	{
+	    $('div.new-user').hide();
+        $('div.new-user').find('input').empty();
+	    renderPostsAndUsers(data);
 	};
 
     var loadPosts = function(){
@@ -43,7 +49,7 @@ $(document).ready(function(){
 		$.ajax(target.attr('action'), {
 			type: 'post', 
 			data: target.serialize(),
-			success: renderPostsAndUsers,
+			success: renderPostsAndUsersAfterFormUsage,
 			error: function(jqXHR, textStatus, errorThrown) {
 			    $('div.new-user').hide();
 				var errorMessage = $.parseJSON(jqXHR.responseText);
