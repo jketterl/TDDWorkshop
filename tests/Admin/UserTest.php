@@ -38,4 +38,16 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setPassword($pwdPlain);
         self::assertSame($pwdHashed, $user->getPassword());
     }
+    
+    public function testLoad()
+    {
+        $user = new User();
+        $data = array(
+            'Default User',
+            '4be30d9814c6d4e9800e0d2ea9ec9fb00efa887b'
+        );
+        $user->load($data);
+        self::assertEquals($data[0], $user->getName());
+        self::assertEquals($data[1], $user->getPassword());
+    }
 }

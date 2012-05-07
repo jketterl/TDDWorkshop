@@ -49,4 +49,18 @@ class User
     {
         return $this->password;
     }
+    
+    /**
+     * User "einrichten" mit Daten aus Benutzerdatei
+     * 
+     * Array an Stelle 0: Benutzername
+     * Array an Stelle 1: Passwort
+     * 
+     * @param Array $userData
+     */
+    public function load($userData)
+    {
+        $this->name = $userData[0];
+        $this->password = $userData[1];
+    }
 }
