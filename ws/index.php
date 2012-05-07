@@ -8,6 +8,13 @@
 	<SCRIPT type="text/javascript" src="js/app.js"></SCRIPT>
 	<BODY>
 		<H1><span>TDD Liveticker</span></H1>
+		<div class="new-entry">
+			<b>Neuen Eintrag schreiben:</b><br />
+			<form action="api.php" method="post">
+				<textarea name="new-msg"></textarea>
+				<input type="submit" value="Posten" />
+			</form>
+		</div>
 		<DIV class="newsticker"></DIV>
 	</BODY>
 </HTML>
