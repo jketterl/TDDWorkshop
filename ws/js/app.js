@@ -24,6 +24,7 @@ $(document).ready(function(){
 	
 	var renderPostsAndUsers = function(data)
 	{
+	    $('div.new-user').hide();
 	    renderPosts(data.posts.reverse());
 	    renderUsers(data.users);
 	};
@@ -44,6 +45,7 @@ $(document).ready(function(){
 			data: target.serialize(),
 			success: renderPostsAndUsers,
 			error: function(jqXHR, textStatus, errorThrown) {
+			    $('div.new-user').hide();
 				var errorMessage = $.parseJSON(jqXHR.responseText);
 				alert('Fehler beim Posten/Anlegen: "' + errorMessage.message + '"');
 			}

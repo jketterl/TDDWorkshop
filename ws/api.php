@@ -24,7 +24,7 @@ try {
 	    $user = new User();
 	    $user->setName($_POST['new-user-name']);
 	    $user->setPassword($_POST['new-user-password']);
-	    $storage = new CsvStorage('Admin\User', $usersFile, array(0 => 'userid', 1 => 'name'));
+	    $storage = new CsvStorage('Admin\User', $usersFile, array(0 => 'name', 1 => 'password'));
 		$storage->store($user);
 	}
 } catch (Exception $e) {
