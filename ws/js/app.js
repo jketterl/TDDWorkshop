@@ -61,4 +61,8 @@ $(document).ready(function(){
 	$('span.new-user').bind('click', function(event) {
 	    $('div.new-user').show();
 	});
+	
+	$('input[type="reset"]').bind('click', function(event) {
+	    $('div.new-user').hide();
+	});
 });

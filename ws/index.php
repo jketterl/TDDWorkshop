@@ -23,6 +23,7 @@
 				Name: <input type="text" name="new-user-name" /> <br />
 				Passwort: <input type="password" name="new-user-password" /><br />
 				<input type="submit" value="Anlegen" />
+				<input type="reset" value="Schlie&szlig;en" />
 			</form>
 		</div>
 		<DIV class="newsticker"></DIV>
