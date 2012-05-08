@@ -1,0 +1,8 @@
+prev="$1"
+current="$2"
+checkout="$3"
+dir=`pwd`
+
+chmod 777 ${dir}/posts.csv
+chmod 777 ${dir}/users.csv
+git submodule update --init
