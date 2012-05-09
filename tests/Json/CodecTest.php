@@ -11,12 +11,6 @@ namespace Json;
  */
 class CodecTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInterface()
-    {
-        $encoder = new Codec();
-        self::assertInstanceOf('Json\CodecInterface', $encoder);
-    }
-    
     public function testEncodesArray()
     {
         $json = new Codec();
