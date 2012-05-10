@@ -35,7 +35,7 @@ class UserListTest extends \PHPUnit_Framework_TestCase
         $list = $this->getUserList();
         $users = $list->getAll();
         self::assertInternalType('array', $users);
-        self::assertEquals(2, count($users));
+        self::assertGreaterThanOrEqual(2, count($users));
         self::assertInstanceOf('Admin\User', $users[0]);
     }
     
