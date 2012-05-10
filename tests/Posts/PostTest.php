@@ -65,13 +65,13 @@ class PostTest extends \PHPUnit_Framework_TestCase
         self::assertEquals($post->getText(), $message);
     }
     
-    public function testStoreCallsStorage()
+    public function testSaveCallsStorage()
     {
         $post = new Post();
         $post->setText('das ist ein probetext');
         $mock = $this->getMock('Storage\StorageInterface');
         $mock->expects($this->once())->method('store')->with($post);
         $post->setStorage($mock);
-        $post->store();
+        $post->save();
     }
 }

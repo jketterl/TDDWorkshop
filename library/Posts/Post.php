@@ -75,7 +75,7 @@ class Post
         return $this->_storage;
     }
     
-    public function store()
+    public function save()
     {
         $this->getStorage()->store($this);
     }
